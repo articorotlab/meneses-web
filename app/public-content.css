@@ -1,0 +1,271 @@
+/* =========================================================
+   PUBLIC CONTENT
+   ========================================================= */
+
+
+/*
+ * El contenido público se obtiene siempre con cache: no-store.
+ *
+ * Las imágenes pueden usar caché del navegador porque cada
+ * archivo nuevo recibe una URL diferente en el backend.
+ */
+
+
+/* =========================================================
+   ATTRACTIONS
+   ========================================================= */
+
+.public-attraction-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 22px;
+}
+
+
+.public-attraction-card {
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(
+      18,
+      58,
+      140,
+      .10
+    );
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow:
+    0 18px 45px
+    rgba(
+      7,
+      23,
+      57,
+      .07
+    );
+}
+
+
+.public-attraction-main-image {
+  height: 250px;
+
+  overflow: hidden;
+
+  background: #eef1f6;
+}
+
+
+.public-attraction-main-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+.public-attraction-placeholder {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 9px;
+
+  color: #8b93a3;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f0f3f8,
+      #e7ebf2
+    );
+}
+
+
+.public-attraction-placeholder span {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+.public-attraction-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  padding:
+    18px 19px;
+}
+
+
+.public-attraction-copy h3 {
+  margin: 0;
+
+  font-size: 18px;
+
+  letter-spacing:
+    -.02em;
+}
+
+
+.public-attraction-copy span {
+  flex: none;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+
+.public-attraction-thumbnails {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  gap: 6px;
+
+  padding:
+    0 19px 19px;
+}
+
+
+.public-attraction-thumbnails img,
+.public-attraction-more {
+  width: 100%;
+
+  aspect-ratio:
+    4 / 3;
+
+  border-radius: 10px;
+}
+
+
+.public-attraction-thumbnails img {
+  display: block;
+
+  object-fit: cover;
+}
+
+
+.public-attraction-more {
+  display: grid;
+  place-items: center;
+
+  color: white;
+
+  background:
+    rgba(
+      7,
+      23,
+      57,
+      .90
+    );
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+
+.public-attractions-empty {
+  min-height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 8px;
+
+  border:
+    1px dashed
+    rgba(
+      18,
+      58,
+      140,
+      .18
+    );
+
+  border-radius: 20px;
+
+  color: #8a93a4;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .55
+    );
+}
+
+
+.public-attractions-empty strong {
+  color: #424a59;
+
+  font-size: 14px;
+}
+
+
+.public-attractions-empty span {
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (
+  max-width: 950px
+) {
+
+  .public-attraction-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+}
+
+
+@media (
+  max-width: 620px
+) {
+
+  .public-attraction-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .public-attraction-main-image {
+    height: 230px;
+  }
+}

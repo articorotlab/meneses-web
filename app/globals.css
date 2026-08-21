@@ -1,26 +1,913 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --red: #e31b23;
+  --blue: #123a8c;
+  --blue-dark: #071739;
+  --gold: #f5b51b;
+  --paper: #fffdf8;
+  --ink: #171717;
+  --muted: #697386;
+  --border: rgba(18, 58, 140, 0.11);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   GENERAL LAYOUT
+   ========================================================= */
+
+.site-shell {
+  width: min(94vw, 1500px);
+  margin-inline: auto;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background:
+    rgba(7, 23, 57, 0.94);
+
+  backdrop-filter:
+    blur(16px);
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+}
+
+.nav-wrap {
+  min-height: 74px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 34px;
+}
+
+.brand {
+  margin-right: auto;
+
+  display: flex;
+}
+
+.brand-logo {
+  width: 54px;
+  height: 54px;
+
+  object-fit: contain;
+
+  border-radius: 12px;
+
+  background: white;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.main-nav a:hover {
+  color: var(--gold);
+}
+
+.admin-link {
+  padding:
+    10px 14px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.2);
+
+  border-radius:
+    999px;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  min-height: 690px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  color: white;
+}
+
+.hero-background {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -3;
+
+  background:
+    url("/images/fair/hero.jpeg")
+    center / cover
+    no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -2;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 18, 47, 0.95),
+      rgba(7, 32, 78, 0.65) 60%,
+      rgba(5, 18, 47, 0.28)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(2, 11, 29, 0.48),
+      transparent 50%
+    );
+}
+
+.hero-content {
+  padding-block: 90px;
+}
+
+.hero-logo {
+  width: 125px;
+  height: 125px;
+
+  object-fit: contain;
+
+  border-radius: 24px;
+
+  background: white;
+
+  box-shadow:
+    0 20px 55px
+    rgba(0, 0, 0, 0.24);
+}
+
+.hero h1 {
+  max-width: 780px;
+
+  margin:
+    28px 0 8px;
+
+  font-size:
+    clamp(
+      48px,
+      7vw,
+      84px
+    );
+
+  line-height: 0.95;
+
+  letter-spacing:
+    -0.055em;
+
+  font-weight: 900;
+}
+
+.hero-tagline {
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, 0.75);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   HERO FACTS
+   ========================================================= */
+
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin:
+    32px 0 24px;
+}
+
+.hero-fact-card {
+  min-width: 240px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding:
+    14px 16px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  backdrop-filter:
+    blur(12px);
+}
+
+.hero-fact-card svg {
+  color: var(--gold);
+
+  flex: none;
+}
+
+.hero-fact-card span {
+  display: grid;
+
+  gap: 2px;
+}
+
+.hero-fact-card small {
+  color:
+    rgba(255, 255, 255, 0.58);
+
+  text-transform: uppercase;
+
+  font-size: 10px;
+
+  letter-spacing:
+    0.08em;
+
+  font-weight: 800;
+}
+
+.hero-fact-card strong {
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.button {
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding:
+    0 19px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.button-primary {
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      #ff4148
+    );
+
+  box-shadow:
+    0 14px 30px
+    rgba(227, 27, 35, 0.28);
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section {
+  padding-block: 92px;
+}
+
+
+/* =========================================================
+   VISIT / LOCATION / HOURS
+   ========================================================= */
+
+.visit-section {
+  background: white;
+}
+
+
+/* =========================================================
+   SECTION ICONS
+   ========================================================= */
+
+.section-icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin-bottom: 24px;
+
+  border-radius: 16px;
+}
+
+.section-icon.red {
+  color: white;
+
+  background:
+    var(--red);
+}
+
+.section-icon.blue {
+  color: white;
+
+  background:
+    var(--blue);
+}
+
+.section-kicker {
+  color: var(--blue);
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  letter-spacing:
+    0.09em;
+
+  text-transform:
+    uppercase;
+}
+
+
+/* =========================================================
+   TITLES
+   ========================================================= */
+
+.location-card h2,
+.hours-card h2,
+.section-heading h2 {
+  margin:
+    8px 0 12px;
+
+  font-size:
+    clamp(
+      34px,
+      4vw,
+      52px
+    );
+
+  letter-spacing:
+    -0.04em;
+
+  line-height: 1;
+}
+
+.location-card p {
+  max-width: 620px;
+
+  margin:
+    0 0 26px;
+
+  color: var(--muted);
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   HOURS
+   ========================================================= */
+
+.hours-list > div {
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 24px;
+
+  padding:
+    17px 0;
+
+  border-bottom:
+    1px solid
+    var(--border);
+}
+
+.hours-list > div.today {
+  margin-inline: -12px;
+
+  padding-inline: 12px;
+
+  border-bottom-color:
+    transparent;
+
+  border-radius: 12px;
+
+  background:
+    rgba(245, 181, 27, 0.14);
+}
+
+.hours-list span {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--muted);
+}
+
+.hours-list strong {
+  font-size: 15px;
+}
+
+.hours-list small {
+  padding:
+    3px 6px;
+
+  border-radius:
+    999px;
+
+  color:
+    var(--blue-dark);
+
+  background:
+    var(--gold);
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   ATTRACTIONS
+   ========================================================= */
+
+.section-heading {
+  margin-bottom: 30px;
+}
+
+.attractions-section {
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(245, 181, 27, 0.08),
+      transparent 30%
+    ),
+    var(--paper);
+}
+
+.attraction-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.attraction-card {
+  overflow: hidden;
+
+  border-radius: 25px;
+
+  background: white;
+
+  border:
+    1px solid
+    var(--border);
+}
+
+.attraction-art {
+  min-height: 220px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: white;
+}
+
+.attraction-blue .attraction-art {
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      #2767d3
+    );
+}
+
+.attraction-red .attraction-art {
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      #ff565d
+    );
+}
+
+.attraction-gold .attraction-art {
+  background:
+    linear-gradient(
+      135deg,
+      #e9a70d,
+      var(--gold)
+    );
+}
+
+.bumper-icon {
+  font-size: 62px;
+
+  font-weight: 900;
+}
+
+.attraction-copy {
+  padding: 22px;
+}
+
+.attraction-copy h3 {
+  margin: 0;
+
+  font-size: 21px;
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+.events-section {
+  background: white;
+}
+
+.events-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.event-card {
+  display: flex;
+
+  align-items:
+    flex-start;
+
+  gap: 14px;
+
+  padding: 20px;
+
+  border-radius: 20px;
+
+  border:
+    1px solid
+    var(--border);
+
+  background:
+    var(--paper);
+}
+
+.event-card svg {
+  color: var(--red);
+
+  flex: none;
+}
+
+.event-card span {
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.event-card h3 {
+  margin:
+    4px 0;
+}
+
+.event-card p {
+  margin: 0;
+
+  color: var(--blue);
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  background:
+    var(--blue-dark);
+
+  color: white;
+}
+
+.footer-content {
+  min-height: 130px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.footer-logo {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 13px;
+
+  background: white;
+
+  object-fit: contain;
+}
+
+.footer-content > div {
+  display: grid;
+
+  gap: 3px;
+}
+
+.footer-content span,
+.footer-content p {
+  color:
+    rgba(255, 255, 255, 0.56);
+
+  font-size: 12px;
+}
+
+.footer-content p {
+  margin-left: auto;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .main-nav {
+    display: none;
+  }
+
+  .visit-section .site-shell {
+    width:
+      min(
+        100% - 32px,
+        1180px
+      );
+  }
+
+  .visit-grid,
+  .attraction-grid,
+  .events-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .location-card,
+  .hours-card {
+    min-height: auto;
+  }
+
+
+  /* =======================================================
+     HERO FACTS RESPONSIVE
+     ======================================================= */
+
+  .hero-facts {
+    display: flex;
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    gap: 12px;
+
+    margin:
+      24px 0 20px;
+  }
+
+  .hero-fact-card {
+    flex:
+      0 0 auto;
+
+    width:
+      290px;
+
+    min-width:
+      0;
+
+    max-width:
+      calc(
+        100vw - 40px
+      );
+
+    padding:
+      11px 14px;
+
+    border-radius:
+      14px;
+  }
+
+  .hero-fact-card svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero-fact-card strong {
+    font-size: 14px;
+  }
+
+  .hero-fact-card small {
+    font-size: 9px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 620px) {
+
+  .site-shell {
+    width:
+      min(
+        100% - 28px,
+        1160px
+      );
+  }
+
+  .nav-wrap {
+    min-height: 66px;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .admin-link {
+    font-size: 10px;
+
+    padding:
+      8px 10px;
+  }
+
+  .hero {
+    min-height: 620px;
+  }
+
+  .hero-content {
+    padding-block: 60px;
+  }
+
+  .hero-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .hero h1 {
+    font-size:
+      clamp(
+        44px,
+        14vw,
+        64px
+      );
+  }
+
+  .hero-tagline {
+    font-size: 17px;
+  }
+
+
+  /*
+   * En teléfonos muy estrechos permitimos
+   * que las tarjetas reduzcan todavía más
+   * su ancho si fuera necesario.
+   */
+
+  .hero-fact-card {
+    width: 280px;
+
+    max-width:
+      calc(
+        100vw - 40px
+      );
+  }
+
+
+  .section {
+    padding-block: 68px;
+  }
+
+  .location-card,
+  .hours-card {
+    padding: 25px;
+  }
+
+  .hours-list {
+    margin-top: 28px;
+  }
+
+  .hours-list > div {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+
+    gap: 5px;
+  }
+
+  .footer-content {
+    padding-block: 24px;
+
+    align-items:
+      flex-start;
+
+    flex-wrap:
+      wrap;
+  }
+
+  .footer-content p {
+    width: 100%;
+
+    margin:
+      4px 0 0;
+  }
 }
