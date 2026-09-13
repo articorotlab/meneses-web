@@ -361,7 +361,7 @@
   display: grid;
 
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(5, minmax(0, 1fr));
 
   gap: 14px;
 
@@ -419,6 +419,22 @@
   background: #7444bd;
 }
 
+.admin-report-summary-icon.orange {
+  color: white;
+  background: #e56b17;
+}
+
+.admin-report-summary-card-returns {
+  border-color: rgba(229, 107, 23, .16);
+}
+
+.admin-report-return-refund {
+  margin-top: auto;
+  padding-top: 12px;
+  color: #b84f0c;
+  font-size: 11px;
+}
+
 .admin-report-summary-card > span {
   color: var(--muted);
 
@@ -450,6 +466,239 @@
   color: #7444bd;
 
   font-size: 11px;
+}
+
+
+.admin-report-summary-card-income {
+  min-height: 220px;
+}
+
+.admin-report-income-breakdown {
+  width: 100%;
+
+  display: grid;
+
+  gap: 0;
+
+  margin-top: auto;
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(18, 58, 140, .08);
+}
+
+.admin-report-income-breakdown > div {
+  min-height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  border-bottom: 1px solid rgba(18, 58, 140, .06);
+}
+
+.admin-report-income-breakdown > div:last-child {
+  border-bottom: 0;
+}
+
+.admin-report-income-breakdown span {
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.admin-report-income-breakdown b {
+  color: var(--ink);
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   CARD MOVEMENT
+   ========================================================= */
+
+.admin-report-card-movement-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-top: 14px;
+}
+
+.admin-report-card-movement-card {
+  min-height: 150px;
+
+  padding: 20px;
+
+  border: 1px solid rgba(18, 58, 140, .09);
+
+  border-radius: 20px;
+
+  background: white;
+
+  box-shadow:
+    0 10px 30px rgba(14, 39, 88, .035);
+}
+
+.admin-report-card-movement-card.activated {
+  border-color: rgba(20, 150, 111, .22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20, 150, 111, .07),
+      rgba(255, 255, 255, .92)
+    );
+}
+
+.admin-report-card-movement-card.deactivated {
+  border-color: rgba(227, 27, 35, .18);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(227, 27, 35, .055),
+      rgba(255, 255, 255, .94)
+    );
+}
+
+.admin-report-card-movement-top {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+}
+
+.admin-report-card-movement-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  flex: none;
+
+  border-radius: 13px;
+
+  color: white;
+}
+
+.admin-report-card-movement-card.activated
+.admin-report-card-movement-icon {
+  background: #14966f;
+}
+
+.admin-report-card-movement-card.deactivated
+.admin-report-card-movement-icon {
+  background: #e31b23;
+}
+
+.admin-report-card-movement-top > div:last-child {
+  display: grid;
+
+  gap: 4px;
+}
+
+.admin-report-card-movement-top span {
+  color: var(--muted);
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-report-card-movement-top strong {
+  font-size: clamp(26px, 3vw, 34px);
+
+  letter-spacing: -.04em;
+}
+
+.admin-report-card-origin-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 18px;
+}
+
+.admin-report-card-origin-grid > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding-top: 11px;
+
+  border-top:
+    1px solid rgba(18, 58, 140, .08);
+}
+
+.admin-report-card-origin-grid span {
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.admin-report-card-origin-grid strong {
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   RECHARGE POINT COMPACT VALUES
+   ========================================================= */
+
+.admin-report-recharge-values {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(120px, 1fr));
+
+  gap: 0;
+
+  text-align: left;
+}
+
+.admin-report-recharge-values > div {
+  min-width: 150px;
+
+  display: grid;
+
+  gap: 4px;
+
+  padding: 2px 22px;
+}
+
+.admin-report-recharge-values > div + div {
+  border-left:
+    1px solid rgba(18, 58, 140, .10);
+}
+
+.admin-report-recharge-values span {
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.admin-report-recharge-values strong {
+  font-size: 18px;
+
+  letter-spacing: -.025em;
 }
 
 
@@ -522,6 +771,43 @@
   display: grid;
 
   gap: 10px;
+}
+
+.admin-report-list-link {
+  display: block;
+
+  color: inherit;
+  text-decoration: none;
+
+  border-radius: 15px;
+}
+
+.admin-report-list-link .admin-report-list-card {
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    background-color .16s ease,
+    box-shadow .16s ease;
+}
+
+.admin-report-list-link:hover .admin-report-list-card {
+  transform: translateY(-1px);
+
+  border-color: rgba(18, 58, 140, .24);
+
+  background: #f7f9ff;
+
+  box-shadow:
+    0 8px 20px rgba(18, 58, 140, .07);
+}
+
+.admin-report-list-link:focus-visible {
+  outline: 3px solid rgba(18, 58, 140, .18);
+  outline-offset: 3px;
+}
+
+.admin-report-list-link:active .admin-report-list-card {
+  transform: translateY(0);
 }
 
 .admin-report-list-card {
@@ -606,6 +892,12 @@
   color: var(--muted);
 
   font-size: 10px;
+}
+
+.admin-report-list-values .admin-report-list-audit {
+  margin-top: 3px;
+  color: #b84f0c;
+  font-weight: 800;
 }
 
 
@@ -980,7 +1272,7 @@
 
   .admin-report-summary-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1014,6 +1306,36 @@
 
   .admin-report-summary-card {
     min-height: auto;
+  }
+
+  .admin-report-card-movement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-report-card-origin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-report-recharge-values {
+    width: 100%;
+
+    grid-template-columns: 1fr;
+
+    padding-left: 54px;
+  }
+
+  .admin-report-recharge-values > div {
+    min-width: 0;
+
+    padding:
+      8px 0;
+  }
+
+  .admin-report-recharge-values > div + div {
+    border-left: 0;
+
+    border-top:
+      1px solid rgba(18, 58, 140, .08);
   }
 
   .admin-report-section {
@@ -1094,6 +1416,10 @@
 
   .admin-report-chart {
     height: 280px;
+  }
+
+  .admin-report-recharge-values {
+    padding-left: 0;
   }
 
   .admin-history-header,

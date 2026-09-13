@@ -1,0 +1,871 @@
+/* =========================================================
+   RECHARGE POINT REPORT DETAIL
+   ========================================================= */
+
+.recharge-report-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.recharge-report-shell {
+  width: min(1320px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.recharge-report-topbar {
+  min-height: 78px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+.recharge-report-back {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--blue);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.recharge-report-back:hover {
+  text-decoration: underline;
+}
+
+.recharge-report-user {
+  display: grid;
+
+  gap: 2px;
+
+  text-align: right;
+}
+
+.recharge-report-user span {
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.recharge-report-user strong {
+  font-size: 13px;
+}
+
+.recharge-report-content {
+  padding-block: 46px 100px;
+}
+
+.recharge-report-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 18px;
+
+  max-width: 900px;
+}
+
+.recharge-report-heading-icon {
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  flex: none;
+
+  border-radius: 16px;
+
+  color: white;
+  background: var(--green, #16a34a);
+}
+
+.recharge-report-heading span,
+.recharge-report-section-heading span {
+  color: var(--green, #16824d);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+
+.recharge-report-heading h1 {
+  margin: 5px 0 8px;
+
+  font-size: clamp(34px, 5vw, 54px);
+
+  letter-spacing: -.045em;
+
+  line-height: 1;
+}
+
+.recharge-report-heading p {
+  margin: 0;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+}
+
+.recharge-report-financial-overview {
+  margin-top: 34px;
+}
+
+.recharge-report-income-hero {
+  min-height: 142px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 20px;
+  color: white;
+  background: #16824d;
+  box-shadow:
+    0 12px 34px rgba(22, 130, 77, .13);
+}
+
+.recharge-report-income-hero > div {
+  display: grid;
+  gap: 9px;
+}
+
+.recharge-report-income-hero span {
+  color: rgba(255, 255, 255, .78);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .075em;
+}
+
+.recharge-report-income-hero strong {
+  font-size: clamp(31px, 4vw, 44px);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.recharge-report-income-hero small {
+  color: rgba(255, 255, 255, .82);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.recharge-report-income-components {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.recharge-report-credit-section {
+  margin-top: 36px;
+}
+
+.recharge-report-credit-hero {
+  min-height: 142px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 20px;
+  color: white;
+  background: #16824d;
+  box-shadow:
+    0 12px 34px rgba(22, 130, 77, .13);
+}
+
+.recharge-report-credit-hero > div {
+  display: grid;
+  gap: 9px;
+}
+
+.recharge-report-credit-hero span {
+  color: rgba(255, 255, 255, .78);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .075em;
+}
+
+.recharge-report-credit-hero strong {
+  font-size: clamp(31px, 4vw, 44px);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.recharge-report-credit-hero small {
+  color: rgba(255, 255, 255, .82);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.recharge-report-credit-components {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.recharge-report-metric {
+  min-height: 132px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding: 20px;
+
+  border: 1px solid rgba(18, 58, 140, .09);
+
+  border-radius: 20px;
+
+  background: white;
+
+  box-shadow:
+    0 10px 30px rgba(14, 39, 88, .035);
+}
+
+.recharge-report-metric.primary {
+  color: white;
+
+  border-color: transparent;
+
+  background: #16824d;
+}
+
+
+.recharge-report-metric > div {
+  display: grid;
+
+  gap: 8px;
+}
+
+.recharge-report-metric span {
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.recharge-report-metric small {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.35;
+}
+
+.recharge-report-metric.primary span,
+.recharge-report-metric.primary small {
+  color: rgba(255, 255, 255, .76);
+}
+
+
+.recharge-report-metric strong {
+  font-size: clamp(24px, 3vw, 34px);
+
+  letter-spacing: -.035em;
+}
+
+
+.recharge-report-return-audit {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid rgba(229, 107, 23, .14);
+  border-radius: 22px;
+  background: white;
+  box-shadow:
+    0 10px 30px rgba(14, 39, 88, .035);
+}
+
+.recharge-report-return-audit-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(18, 58, 140, .08);
+}
+
+.recharge-report-return-audit-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 13px;
+  color: white;
+  background: #e56b17;
+}
+
+.recharge-report-return-audit-heading span {
+  color: #b84f0c;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.recharge-report-return-audit-heading h2 {
+  margin: 4px 0 5px;
+  font-size: 24px;
+  letter-spacing: -.025em;
+}
+
+.recharge-report-return-audit-heading p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.recharge-report-return-overview {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.recharge-report-discard-section {
+  margin-top: 30px;
+}
+
+.recharge-report-discard-hero {
+  min-height: 118px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid rgba(220, 38, 38, .18);
+  border-radius: 18px;
+  color: #b91c1c;
+  background: #fff8f8;
+}
+
+.recharge-report-discard-hero > div {
+  display: grid;
+  gap: 8px;
+}
+
+.recharge-report-discard-hero span {
+  color: #b91c1c;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.recharge-report-discard-hero strong {
+  font-size: clamp(27px, 3.5vw, 38px);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.recharge-report-discard-hero small {
+  color: #8f4b4b;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.recharge-report-discard-breakdown {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.recharge-report-discard-breakdown > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(18, 58, 140, .08);
+  border-radius: 14px;
+  background: #f8faff;
+}
+
+.recharge-report-discard-breakdown span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+
+.recharge-report-discard-breakdown strong {
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.recharge-report-origin-breakdown {
+  display: grid;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.recharge-report-origin-breakdown > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.recharge-report-origin-breakdown > span strong {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.recharge-report-return-metric {
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  padding: 17px;
+  border: 1px solid rgba(18, 58, 140, .08);
+  border-radius: 16px;
+  background: #fbfcff;
+}
+
+.recharge-report-return-metric span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.recharge-report-return-metric strong {
+  margin-top: 8px;
+  font-size: clamp(23px, 2.6vw, 31px);
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+
+.recharge-report-return-metric small {
+  margin-top: auto;
+  padding-top: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.recharge-report-return-metric.refund {
+  border-color: rgba(229, 107, 23, .18);
+  background: #fffaf6;
+}
+
+.recharge-report-return-metric.refund strong {
+  color: #b84f0c;
+}
+
+.recharge-report-return-metric.total {
+  border-color: rgba(220, 38, 38, .14);
+  background: #fff9f9;
+}
+
+.recharge-report-return-metric.total strong,
+.recharge-report-return-metric.cash strong {
+  color: #b91c1c;
+}
+
+.recharge-report-return-metric.promotional strong {
+  color: #7c3aed;
+}
+
+.recharge-report-return-metric.admin strong {
+  color: #7444bd;
+}
+
+.recharge-report-integrity-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  padding: 16px 18px;
+
+  border: 1px solid rgba(180, 60, 0, .18);
+
+  border-radius: 16px;
+
+  color: #8d3300;
+
+  background: #fff0e8;
+}
+
+.recharge-report-integrity-note svg {
+  flex: none;
+
+  margin-top: 2px;
+}
+
+.recharge-report-integrity-note strong {
+  display: block;
+
+  margin-bottom: 4px;
+}
+
+.recharge-report-integrity-note p {
+  margin: 0;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+.recharge-report-panel {
+  margin-top: 28px;
+
+  padding: 24px;
+
+  border: 1px solid rgba(18, 58, 140, .09);
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow:
+    0 10px 30px rgba(14, 39, 88, .035);
+}
+
+.recharge-report-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.recharge-report-section-heading h2 {
+  margin: 5px 0 0;
+
+  font-size: 24px;
+
+  letter-spacing: -.025em;
+}
+
+.recharge-report-chart {
+  width: 100%;
+  height: 370px;
+}
+
+.recharge-report-table-wrap {
+  overflow-x: auto;
+
+  border: 1px solid rgba(18, 58, 140, .08);
+
+  border-radius: 15px;
+}
+
+.recharge-report-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 1180px;
+}
+
+.recharge-report-table th,
+.recharge-report-table td {
+  padding: 14px 16px;
+
+  border-bottom:
+    1px solid rgba(18, 58, 140, .07);
+
+  text-align: right;
+
+  white-space: nowrap;
+}
+
+.recharge-report-table th:first-child,
+.recharge-report-table td:first-child {
+  text-align: left;
+}
+
+.recharge-report-table th {
+  color: var(--muted);
+
+  background: #f7f9fc;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+
+.recharge-report-table td {
+  font-size: 13px;
+}
+
+.recharge-report-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.recharge-report-table tbody tr:hover {
+  background: #fafbfe;
+}
+
+.recharge-report-table tfoot td {
+  border-top: 2px solid rgba(18, 58, 140, .14);
+  border-bottom: 0;
+  background: #f3f6fb;
+  font-weight: 900;
+}
+
+.recharge-report-table tfoot td:first-child {
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+
+.recharge-report-equations {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 14px;
+
+  margin-top: 22px;
+}
+
+.recharge-report-equations article {
+  display: grid;
+
+  gap: 6px;
+
+  padding: 16px 18px;
+
+  border: 1px solid rgba(18, 58, 140, .08);
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, .7);
+}
+
+.recharge-report-equations strong {
+  font-size: 13px;
+}
+
+.recharge-report-equations span {
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.recharge-report-empty,
+.recharge-report-state {
+  padding: 42px 24px;
+
+  border: 1px dashed rgba(18, 58, 140, .16);
+
+  border-radius: 18px;
+
+  color: var(--muted);
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, .62);
+}
+
+.recharge-report-state {
+  min-height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+.recharge-report-state strong {
+  color: var(--ink);
+
+  font-size: 18px;
+}
+
+.recharge-report-state button {
+  min-height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 8px;
+
+  padding: 0 15px;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  color: white;
+  background: var(--blue);
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.recharge-report-state.error {
+  color: #9f1d1d;
+}
+
+.recharge-report-spinner {
+  animation:
+    recharge-report-spin
+    .8s linear infinite;
+}
+
+@keyframes recharge-report-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (
+  max-width: 900px
+) {
+  .recharge-report-income-components {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .recharge-report-credit-components {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .recharge-report-return-overview,
+  .recharge-report-discard-breakdown {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (
+  max-width: 620px
+) {
+  .recharge-report-shell {
+    width:
+      min(
+        calc(100% - 24px),
+        1320px
+      );
+  }
+
+  .recharge-report-topbar {
+    min-height: 68px;
+  }
+
+  .recharge-report-content {
+    padding-block:
+      30px 70px;
+  }
+
+  .recharge-report-heading {
+    gap: 13px;
+  }
+
+  .recharge-report-heading-icon {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 14px;
+  }
+
+  .recharge-report-income-components,
+  .recharge-report-credit-components,
+  .recharge-report-equations,
+  .recharge-report-return-overview,
+  .recharge-report-discard-breakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .recharge-report-credit-section {
+    margin-top: 28px;
+  }
+
+  .recharge-report-discard-section {
+    margin-top: 24px;
+  }
+
+  .recharge-report-metric {
+    min-height: 108px;
+  }
+
+  .recharge-report-income-hero,
+  .recharge-report-credit-hero {
+    min-height: 124px;
+    padding: 18px;
+  }
+
+  .recharge-report-discard-hero {
+    min-height: 108px;
+    padding: 17px;
+  }
+
+  .recharge-report-panel {
+    padding: 18px;
+  }
+
+  .recharge-report-chart {
+    height: 320px;
+  }
+
+  .recharge-report-return-audit {
+    padding: 18px;
+  }
+
+  .recharge-report-return-audit-heading {
+    gap: 11px;
+  }
+
+  .recharge-report-return-audit-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .recharge-report-user {
+    display: none;
+  }
+}

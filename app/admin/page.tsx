@@ -1,8 +1,5 @@
 import Image from "next/image";
-
-import {
-  redirect,
-} from "next/navigation";
+import { redirect } from "next/navigation";
 
 import {
   BarChart3,
@@ -11,8 +8,7 @@ import {
   Smartphone,
 } from "lucide-react";
 
-import LogoutButton
-  from "./logout-button";
+import LogoutButton from "./logout-button";
 
 import {
   getCurrentWebUser,
@@ -30,11 +26,16 @@ export default async function AdminPage() {
     redirect(
       "/admin/login"
     );
+
   }
 
 
   return (
     <main className="admin-dashboard-page">
+
+      {/* ===================================================
+          HEADER
+          =================================================== */}
 
       <header className="admin-dashboard-header">
 
@@ -49,7 +50,6 @@ export default async function AdminPage() {
               height={54}
               className="admin-header-logo"
             />
-
 
             <div>
 
@@ -73,6 +73,10 @@ export default async function AdminPage() {
       </header>
 
 
+      {/* ===================================================
+          CONTENT
+          =================================================== */}
+
       <section className="admin-dashboard-shell admin-dashboard-content">
 
         <div className="admin-welcome">
@@ -90,15 +94,30 @@ export default async function AdminPage() {
           <p>
             Desde aquí podrás administrar la
             información pública de la feria,
-            consultar reportes de operación,
-            supervisar los dispositivos y
-            configurar el contenido del sitio.
+            consultar reportes de operación y
+            configurar el contenido que se
+            muestra en el sitio web.
           </p>
 
         </div>
 
 
+        {/* =================================================
+            MODULES
+
+            Orden visual:
+            1. Configuración
+            2. Contenido del sitio
+            3. Reportes
+            4. Dispositivos
+            ================================================= */}
+
         <div className="admin-module-grid">
+
+
+          {/* ===============================================
+              CONFIGURATION
+              =============================================== */}
 
           <a
             href="/admin/configuracion"
@@ -120,6 +139,7 @@ export default async function AdminPage() {
                 Configuración
               </h2>
 
+
               <p>
                 Ubicación, horarios, teléfono
                 y datos públicos de la feria.
@@ -130,67 +150,9 @@ export default async function AdminPage() {
           </a>
 
 
-          <a
-            href="/admin/reportes"
-            className="admin-module-card"
-          >
-
-            <div className="admin-module-icon gold">
-
-              <BarChart3
-                size={25}
-              />
-
-            </div>
-
-
-            <div>
-
-              <h2>
-                Reportes
-              </h2>
-
-              <p>
-                Consulta recargas, consumo en
-                juegos, personas, taquillas y
-                actividad de los dispositivos.
-              </p>
-
-            </div>
-
-          </a>
-
-
-          <a
-            href="/admin/dispositivos"
-            className="admin-module-card"
-          >
-
-            <div className="admin-module-icon red">
-
-              <Smartphone
-                size={25}
-              />
-
-            </div>
-
-
-            <div>
-
-              <h2>
-                Dispositivos
-              </h2>
-
-              <p>
-                Registra, provisiona, bloquea
-                y supervisa los Ulefone
-                utilizados en la feria.
-              </p>
-
-            </div>
-
-          </a>
-
+          {/* ===============================================
+              SITE CONTENT
+              =============================================== */}
 
           <a
             href="/admin/contenido"
@@ -212,10 +174,83 @@ export default async function AdminPage() {
                 Contenido del sitio
               </h2>
 
+
               <p>
                 Administra la imagen de portada
                 y las atracciones que aparecen
                 en la página pública.
+              </p>
+
+            </div>
+
+          </a>
+
+
+          {/* ===============================================
+              REPORTS
+              =============================================== */}
+
+          <a
+            href="/admin/reportes"
+            className="admin-module-card"
+          >
+
+            <div className="admin-module-icon gold">
+
+              <BarChart3
+                size={25}
+              />
+
+            </div>
+
+
+            <div>
+
+              <h2>
+                Reportes
+              </h2>
+
+
+              <p>
+                Consulta recargas, consumo en
+                juegos, personas, taquillas y
+                actividad de los dispositivos.
+              </p>
+
+            </div>
+
+          </a>
+
+
+          {/* ===============================================
+              DEVICES
+              =============================================== */}
+
+          <a
+            href="/admin/dispositivos"
+            className="admin-module-card"
+          >
+
+            <div className="admin-module-icon red">
+
+              <Smartphone
+                size={25}
+              />
+
+            </div>
+
+
+            <div>
+
+              <h2>
+                Dispositivos
+              </h2>
+
+
+              <p>
+                Registra, provisiona, bloquea
+                y supervisa los Ulefone
+                utilizados en la feria.
               </p>
 
             </div>
@@ -228,4 +263,5 @@ export default async function AdminPage() {
 
     </main>
   );
+
 }

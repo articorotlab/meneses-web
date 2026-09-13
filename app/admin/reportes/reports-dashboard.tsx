@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import {
   ArrowLeft,
@@ -16,9 +17,11 @@ import {
   CalendarDays,
   Clock3,
   Gamepad2,
+  Gift,
   LoaderCircle,
   MonitorSmartphone,
   RefreshCw,
+  RotateCcw,
   ShieldCheck,
   Ticket,
   Users,
@@ -44,15 +47,54 @@ import {
 
 
 type ReportSummary = {
+  /* Compatibilidad mantenida por backend. */
   rechargePointAmount: number;
   rechargePointRechargeAmount: number;
   rechargePointActivationAmount: number;
   gameConsumptionAmount: number;
   gamePeopleCount: number;
 
+  rechargePoints: {
+    cashReceived: number;
+    promotionalGiven: number;
+    creditedAmount: number;
+    activationAmount: number;
+    totalIncomeAmount: number;
+  };
+
+  games: {
+    consumptionAmount: number;
+    cashConsumed: number;
+    promotionalConsumed: number;
+    adminCreditConsumed: number;
+    legacyConsumed: number;
+    unclassifiedConsumed: number;
+    peopleCount: number;
+  };
+
   admin: {
     rechargeAmount: number;
     adjustmentAmount: number;
+  };
+
+  cards: {
+    rechargeActivationsCount: number;
+    adminActivationsCount: number;
+    returnsCount: number;
+    rechargeOriginReturnsCount: number;
+    adminOriginReturnsCount: number;
+  };
+
+  cardReturns: {
+    refundAmount: number;
+    discardedCash: number;
+    discardedPromotional: number;
+    discardedAdminCredit: number;
+    discardedLegacy: number;
+    discardedTotal: number;
+    returnsCount: number;
+    rechargeOriginReturnsCount: number;
+    adminOriginReturnsCount: number;
   };
 };
 
@@ -92,18 +134,50 @@ type GamesResponse = {
 
 type RechargeDailyBreakdown = {
   date: string;
+  cashReceived: number;
+  cardReceived: number;
+  cashRechargeAmount: number;
+  cardRechargeAmount: number;
+  promotionalGiven: number;
+  creditedAmount: number;
   rechargedAmount: number;
   activationAmount: number;
   totalIncomeAmount: number;
+  cardRefundAmount: number;
+  discardedCash: number;
+  discardedPromotional: number;
+  discardedAdminCredit: number;
+  discardedLegacy: number;
+  discardedTotal: number;
+  activationsCount: number;
+  returnsCount: number;
+  rechargeOriginReturnsCount: number;
+  adminOriginReturnsCount: number;
 };
 
 
 type ReportRechargePoint = {
   rechargePointId: string;
   name: string;
+  cashReceived: number;
+  cardReceived: number;
+  cashRechargeAmount: number;
+  cardRechargeAmount: number;
+  promotionalGiven: number;
+  creditedAmount: number;
   rechargedAmount: number;
   activationAmount: number;
   totalIncomeAmount: number;
+  cardRefundAmount: number;
+  discardedCash: number;
+  discardedPromotional: number;
+  discardedAdminCredit: number;
+  discardedLegacy: number;
+  discardedTotal: number;
+  activationsCount: number;
+  returnsCount: number;
+  rechargeOriginReturnsCount: number;
+  adminOriginReturnsCount: number;
   dailyBreakdown: RechargeDailyBreakdown[];
 };
 
@@ -682,6 +756,9 @@ export default function ReportsDashboard({
   initialDate,
 }: ReportsDashboardProps) {
 
+  const searchParams =
+    useSearchParams();
+
   const [
     preset,
     setPreset,
@@ -1007,15 +1084,80 @@ export default function ReportsDashboard({
   useEffect(
     () => {
 
+      const queryFrom =
+        searchParams.get(
+          "from"
+        );
+
+      const queryTo =
+        searchParams.get(
+          "to"
+        );
+
+      const queryPreset =
+        searchParams.get(
+          "preset"
+        );
+
+      const validDate =
+        /^\d{4}-\d{2}-\d{2}$/;
+
+      const nextFrom =
+        queryFrom &&
+        validDate.test(
+          queryFrom
+        )
+          ? queryFrom
+          : initialDate;
+
+      const nextTo =
+        queryTo &&
+        validDate.test(
+          queryTo
+        )
+          ? queryTo
+          : initialDate;
+
+      const nextPreset:
+        RangePreset =
+        queryPreset ===
+          "7_DAYS" ||
+        queryPreset ===
+          "30_DAYS" ||
+        queryPreset ===
+          "CUSTOM" ||
+        queryPreset ===
+          "TODAY"
+          ? queryPreset
+          : nextFrom ===
+              initialDate &&
+            nextTo ===
+              initialDate
+            ? "TODAY"
+            : "CUSTOM";
+
+      setPreset(
+        nextPreset
+      );
+
+      setFrom(
+        nextFrom
+      );
+
+      setTo(
+        nextTo
+      );
+
       void loadReports(
-        initialDate,
-        initialDate
+        nextFrom,
+        nextTo
       );
 
     },
     [
       initialDate,
       loadReports,
+      searchParams,
     ]
   );
 
@@ -1290,6 +1432,33 @@ export default function ReportsDashboard({
         rechargePoints,
         appliedFrom,
         appliedTo,
+      ]
+    );
+
+
+  const rechargePaymentTotals =
+    useMemo(
+      () =>
+        rechargePoints.reduce(
+          (
+            totals,
+            point
+          ) => ({
+            cash:
+              totals.cash +
+              point.cashRechargeAmount,
+
+            card:
+              totals.card +
+              point.cardRechargeAmount,
+          }),
+          {
+            cash: 0,
+            card: 0,
+          }
+        ),
+      [
+        rechargePoints,
       ]
     );
 
@@ -1636,7 +1805,7 @@ export default function ReportsDashboard({
 
             <section className="admin-report-summary-grid">
 
-              <article className="admin-report-summary-card">
+              <article className="admin-report-summary-card admin-report-summary-card-income">
 
                 <div className="admin-report-summary-icon blue">
 
@@ -1654,35 +1823,62 @@ export default function ReportsDashboard({
                   {
                     formatMoney(
                       summary
-                        ?.rechargePointAmount ??
+                        ?.rechargePoints
+                        .totalIncomeAmount ??
                       0
                     )
                   }
                 </strong>
 
-                <small>
-                  Recargas:{" "}
-                  <b>
-                    {
-                      formatMoney(
-                        summary
-                          ?.rechargePointRechargeAmount ??
-                        0
-                      )
-                    }
-                  </b>
-                  {" · "}
-                  Tarjetas:{" "}
-                  <b>
-                    {
-                      formatMoney(
-                        summary
-                          ?.rechargePointActivationAmount ??
-                        0
-                      )
-                    }
-                  </b>
-                </small>
+
+                <div className="admin-report-income-breakdown">
+
+                  <div>
+                    <span>
+                      Pago con tarjeta
+                    </span>
+
+                    <b>
+                      {
+                        formatMoney(
+                          rechargePaymentTotals.card
+                        )
+                      }
+                    </b>
+                  </div>
+
+                  <div>
+                    <span>
+                      Pago en efectivo
+                    </span>
+
+                    <b>
+                      {
+                        formatMoney(
+                          rechargePaymentTotals.cash
+                        )
+                      }
+                    </b>
+                  </div>
+
+                  <div>
+                    <span>
+                      Venta de tarjetas
+                    </span>
+
+                    <b>
+                      {
+                        formatMoney(
+                          summary
+                            ?.rechargePoints
+                            .activationAmount ??
+                          0
+                        )
+                      }
+                    </b>
+                  </div>
+
+                </div>
 
               </article>
 
@@ -1705,7 +1901,8 @@ export default function ReportsDashboard({
                   {
                     formatMoney(
                       summary
-                        ?.gameConsumptionAmount ??
+                        ?.games
+                        .consumptionAmount ??
                       0
                     )
                   }
@@ -1718,23 +1915,30 @@ export default function ReportsDashboard({
 
                 <div className="admin-report-summary-icon gold">
 
-                  <Users
+                  <Gift
                     size={23}
                   />
 
                 </div>
 
                 <span>
-                  # Total de personas en juegos
+                  Promocional otorgado
                 </span>
 
                 <strong>
                   {
-                    summary
-                      ?.gamePeopleCount ??
-                    0
+                    formatMoney(
+                      summary
+                        ?.rechargePoints
+                        .promotionalGiven ??
+                      0
+                    )
                   }
                 </strong>
+
+                <small>
+                  Bono entregado en recargas promocionales
+                </small>
 
               </article>
 
@@ -1784,6 +1988,232 @@ export default function ReportsDashboard({
 
               </article>
 
+
+              <article className="admin-report-summary-card admin-report-summary-card-returns">
+
+                <div className="admin-report-summary-icon orange">
+
+                  <RotateCcw
+                    size={23}
+                  />
+
+                </div>
+
+                <span>
+                  Saldo eliminado en devoluciones
+                </span>
+
+                <strong>
+                  {
+                    formatMoney(
+                      summary
+                        ?.cardReturns
+                        .discardedTotal ??
+                      0
+                    )
+                  }
+                </strong>
+
+                <small>
+                  CASH:{" "}
+                  <b>
+                    {
+                      formatMoney(
+                        summary
+                          ?.cardReturns
+                          .discardedCash ??
+                        0
+                      )
+                    }
+                  </b>
+
+                  <br />
+
+                  Promocional:{" "}
+                  <b>
+                    {
+                      formatMoney(
+                        summary
+                          ?.cardReturns
+                          .discardedPromotional ??
+                        0
+                      )
+                    }
+                  </b>
+
+                  <br />
+
+                  ADMIN_CREDIT:{" "}
+                  <b>
+                    {
+                      formatMoney(
+                        summary
+                          ?.cardReturns
+                          .discardedAdminCredit ??
+                        0
+                      )
+                    }
+                  </b>
+                </small>
+
+                <div className="admin-report-return-refund">
+                  Efectivo devuelto por tarjetas:{" "}
+                  <b>
+                    {
+                      formatMoney(
+                        summary
+                          ?.cardReturns
+                          .refundAmount ??
+                        0
+                      )
+                    }
+                  </b>
+                </div>
+
+              </article>
+
+            </section>
+
+
+            <section className="admin-report-card-movement-grid">
+
+              <article className="admin-report-card-movement-card activated">
+
+                <div className="admin-report-card-movement-top">
+
+                  <div className="admin-report-card-movement-icon">
+                    <Ticket
+                      size={22}
+                    />
+                  </div>
+
+                  <div>
+                    <span>
+                      Tarjetas activadas
+                    </span>
+
+                    <strong>
+                      {
+                        (
+                          summary
+                            ?.cards
+                            .rechargeActivationsCount ??
+                          0
+                        ) +
+                        (
+                          summary
+                            ?.cards
+                            .adminActivationsCount ??
+                          0
+                        )
+                      }
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div className="admin-report-card-origin-grid">
+
+                  <div>
+                    <span>
+                      Origen TAQUILLA
+                    </span>
+
+                    <strong>
+                      {
+                        summary
+                          ?.cards
+                          .rechargeActivationsCount ??
+                        0
+                      }
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Origen ADMIN
+                    </span>
+
+                    <strong>
+                      {
+                        summary
+                          ?.cards
+                          .adminActivationsCount ??
+                        0
+                      }
+                    </strong>
+                  </div>
+
+                </div>
+
+              </article>
+
+
+              <article className="admin-report-card-movement-card deactivated">
+
+                <div className="admin-report-card-movement-top">
+
+                  <div className="admin-report-card-movement-icon">
+                    <Ticket
+                      size={22}
+                    />
+                  </div>
+
+                  <div>
+                    <span>
+                      Tarjetas desactivadas
+                    </span>
+
+                    <strong>
+                      {
+                        summary
+                          ?.cards
+                          .returnsCount ??
+                        0
+                      }
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div className="admin-report-card-origin-grid">
+
+                  <div>
+                    <span>
+                      Origen TAQUILLA
+                    </span>
+
+                    <strong>
+                      {
+                        summary
+                          ?.cards
+                          .rechargeOriginReturnsCount ??
+                        0
+                      }
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Origen ADMIN
+                    </span>
+
+                    <strong>
+                      {
+                        summary
+                          ?.cards
+                          .adminOriginReturnsCount ??
+                        0
+                      }
+                    </strong>
+                  </div>
+
+                </div>
+
+              </article>
+
             </section>
 
 
@@ -1791,7 +2221,7 @@ export default function ReportsDashboard({
                 GAMES
                 =============================================== */}
 
-            <section className="admin-report-section">
+            <section id="juegos" className="admin-report-section">
 
               <div className="admin-report-section-heading">
 
@@ -1832,12 +2262,22 @@ export default function ReportsDashboard({
                         game
                       ) => (
 
-                        <article
-                          className="admin-report-list-card"
+                        <Link
+                          className="admin-report-list-link"
+                          href={
+                            `/admin/reportes/juegos/${encodeURIComponent(game.gameId)}` +
+                            `?from=${encodeURIComponent(appliedFrom)}` +
+                            `&to=${encodeURIComponent(appliedTo)}` +
+                            `&preset=${encodeURIComponent(preset)}`
+                          }
                           key={
                             game.gameId
                           }
                         >
+
+                          <article
+                            className="admin-report-list-card"
+                          >
 
                           <div className="admin-report-list-main">
 
@@ -1893,7 +2333,9 @@ export default function ReportsDashboard({
 
                           </div>
 
-                        </article>
+                          </article>
+
+                        </Link>
 
                       )
                     )}
@@ -2081,7 +2523,7 @@ export default function ReportsDashboard({
                 RECHARGE POINTS
                 =============================================== */}
 
-            <section className="admin-report-section">
+            <section id="taquillas" className="admin-report-section">
 
               <div className="admin-report-section-heading">
 
@@ -2125,13 +2567,23 @@ export default function ReportsDashboard({
                         point
                       ) => (
 
-                        <article
-                          className="admin-report-list-card"
+                        <Link
+                          className="admin-report-list-link"
+                          href={
+                            `/admin/reportes/taquillas/${encodeURIComponent(point.rechargePointId)}` +
+                            `?from=${encodeURIComponent(appliedFrom)}` +
+                            `&to=${encodeURIComponent(appliedTo)}` +
+                            `&preset=${encodeURIComponent(preset)}`
+                          }
                           key={
                             point
                               .rechargePointId
                           }
                         >
+
+                          <article
+                            className="admin-report-list-card"
+                          >
 
                           <div className="admin-report-list-main">
 
@@ -2161,40 +2613,48 @@ export default function ReportsDashboard({
                           </div>
 
 
-                          <div className="admin-report-list-values">
+                          <div className="admin-report-recharge-values">
 
-                            <strong>
-                              {
-                                formatMoney(
-                                  point
-                                    .totalIncomeAmount
-                                )
-                              }
-                            </strong>
+                            <div>
 
-                            <span>
-                              Recargas:{" "}
-                              {
-                                formatMoney(
-                                  point
-                                    .rechargedAmount
-                                )
-                              }
-                            </span>
+                              <span>
+                                Ingreso real total
+                              </span>
 
-                            <span>
-                              Tarjetas:{" "}
-                              {
-                                formatMoney(
-                                  point
-                                    .activationAmount
-                                )
-                              }
-                            </span>
+                              <strong>
+                                {
+                                  formatMoney(
+                                    point
+                                      .totalIncomeAmount
+                                  )
+                                }
+                              </strong>
+
+                            </div>
+
+
+                            <div>
+
+                              <span>
+                                Efectivo devuelto
+                              </span>
+
+                              <strong>
+                                {
+                                  formatMoney(
+                                    point
+                                      .cardRefundAmount
+                                  )
+                                }
+                              </strong>
+
+                            </div>
 
                           </div>
 
-                        </article>
+                          </article>
+
+                        </Link>
 
                       )
                     )}
